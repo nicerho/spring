@@ -10,15 +10,25 @@ version = '0.0.1-SNAPSHOT'
 java {
 	sourceCompatibility = '11'
 }
-
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
 repositories {
 	mavenCentral()
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'javax.inject:javax.inject:1'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation group: 'org.springframework.boot', name: 'spring-boot', version: '2.3.3.RELEASE'
+
 }
 
 tasks.named('test') {

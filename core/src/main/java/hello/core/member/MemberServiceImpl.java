@@ -5,8 +5,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MemberServiceImpl implements MemberService {
+
     private final MemberRepository memberRepository;
-    @Autowired
+
+    @Autowired  //ac.getBean(MemberRepository.class)
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
@@ -20,8 +22,9 @@ public class MemberServiceImpl implements MemberService {
     public Member findMember(Long memberId) {
         return memberRepository.findById(memberId);
     }
+
+    //테스트 용도
     public MemberRepository getMemberRepository() {
         return memberRepository;
     }
-
 }
