@@ -89,6 +89,11 @@ public class FrontControllerServletV5 extends HttpServlet {
 
     }
 
+    @Override
+    protected long getLastModified(HttpServletRequest req) {
+        return super.getLastModified(req);
+    }
+
     private MyView viewResolver(String viewName) {
         return new MyView("/WEB-INF/views/" + viewName + ".jsp");
     }
