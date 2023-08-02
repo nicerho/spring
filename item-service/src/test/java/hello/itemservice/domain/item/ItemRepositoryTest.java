@@ -59,12 +59,17 @@ class ItemRepositoryTest {
     }
     @Test
     void deleteItem(){
-        Item item = new Item("A", 10000, 10);
-        Item savedItem = itemRepository.save(item);
-
-        Item findItem = itemRepository.findById(item.getId());
-        itemRepository.delete(1L);
-        assertThat(savedItem).isEqualTo(null);
+        Item item1 = new Item("A", 10000, 10);
+        Item item2 = new Item("B", 20000, 20);
+        Item item3 = new Item("C", 20000, 20);
+        Item savedItem = itemRepository.save(item1);
+        itemRepository.save(item2);
+        itemRepository.delete(item1);
+        itemRepository.save(item3);
+        System.out.println(itemRepository.findAll());
+        List<Item> result = itemRepository.findAll();
+        assertThat(result.size()).isEqualTo(2);
+        assertThat(result).contains(item1, item2);
     }
 
 }
