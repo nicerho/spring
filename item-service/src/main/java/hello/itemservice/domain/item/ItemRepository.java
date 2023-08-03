@@ -17,8 +17,10 @@ public class ItemRepository {
         return item;
     }
 
-    public void delete(Item item) {
-       store.values().remove(item);
+    public void delete(Long id) {
+        Predicate<? super Item> predicate = item->item.getId()==id;
+        store.values().removeIf(predicate);
+
     }
 
     public Item findById(Long id) {
