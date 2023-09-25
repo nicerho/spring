@@ -2,25 +2,21 @@ package hello.itemservice.domain.item;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
-import java.util.function.Predicate;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class ItemRepository {
-    private static final Map<Long, Item> store = new HashMap<>();
-    private static Long sequence = 0L;
+
+    private static final Map<Long, Item> store = new HashMap<>(); //static
+    private static long sequence = 0L; //static
 
     public Item save(Item item) {
         item.setId(++sequence);
         store.put(item.getId(), item);
         return item;
-    }
-
-    public void delete(Long id) {
-        Predicate<? super Item> predicate = item->item.getId()==id;
-        store.values().removeIf(predicate);
-
     }
 
     public Item findById(Long id) {
@@ -31,15 +27,18 @@ public class ItemRepository {
         return new ArrayList<>(store.values());
     }
 
-
     public void update(Long itemId, Item updateParam) {
         Item findItem = findById(itemId);
         findItem.setItemName(updateParam.getItemName());
         findItem.setPrice(updateParam.getPrice());
         findItem.setQuantity(updateParam.getQuantity());
+        findItem.setOpen(updateParam.getOpen());
+        findItem.setRegions(updateParam.getRegions());
+        findItem.setDeliveryCode(updateParam.getDeliveryCode());
     }
 
     public void clearStore() {
         store.clear();
     }
+
 }

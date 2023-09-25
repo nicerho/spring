@@ -1,15 +1,14 @@
 package hello.itemservice.domain.item;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 class ItemRepositoryTest {
+
     ItemRepository itemRepository = new ItemRepository();
 
     @AfterEach
@@ -20,23 +19,28 @@ class ItemRepositoryTest {
     @Test
     void save() {
         //given
-        Item item = new Item("A", 10000, 10);
+        Item item = new Item("itemA", 10000, 10);
+
         //when
-        Item saveItem = itemRepository.save(item);
+        Item savedItem = itemRepository.save(item);
+
         //then
         Item findItem = itemRepository.findById(item.getId());
-        assertThat(findItem).isEqualTo(saveItem);
+        assertThat(findItem).isEqualTo(savedItem);
     }
 
     @Test
     void findAll() {
         //given
-        Item item1 = new Item("A", 10000, 10);
-        Item item2 = new Item("B", 10000, 10);
+        Item item1 = new Item("item1", 10000, 10);
+        Item item2 = new Item("item2", 20000, 20);
+
         itemRepository.save(item1);
         itemRepository.save(item2);
+
         //when
         List<Item> result = itemRepository.findAll();
+
         //then
         assertThat(result.size()).isEqualTo(2);
         assertThat(result).contains(item1, item2);
@@ -45,31 +49,20 @@ class ItemRepositoryTest {
     @Test
     void updateItem() {
         //given
-        Item item = new Item("A", 10000, 10);
+        Item item = new Item("item1", 10000, 10);
+
         Item savedItem = itemRepository.save(item);
         Long itemId = savedItem.getId();
+
         //when
-        Item updateParam = new Item("item2", 20000, 20);
+        Item updateParam = new Item("item2", 20000, 30);
         itemRepository.update(itemId, updateParam);
-        //then
+
         Item findItem = itemRepository.findById(itemId);
+
+        //then
         assertThat(findItem.getItemName()).isEqualTo(updateParam.getItemName());
         assertThat(findItem.getPrice()).isEqualTo(updateParam.getPrice());
         assertThat(findItem.getQuantity()).isEqualTo(updateParam.getQuantity());
     }
-
-    @Test
-    void deleteItem() {
-        Item item1 = new Item("A", 10000, 10);
-        Item item2 = new Item("B", 20000, 20);
-        Item item3 = new Item("C", 20000, 20);
-        Item savedItem = itemRepository.save(item1);
-        itemRepository.save(item2);
-        itemRepository.save(item3);
-        itemRepository.delete(1L);
-        List<Item> result = itemRepository.findAll();
-        assertThat(result.size()).isEqualTo(2);
-
-    }
-
 }
