@@ -35,9 +35,7 @@
                             method="post"
                     >상품삭제
                     </button>
-                    <input type="button"
-                           th:onclick="|location.href='@{/basic/items/delete/{itemId}(itemId=${item.id})}'|"
-                           method="post">
+                    <input type="button"  th:onclick="|location.href='@{/basic/items/delete/{itemId}(itemId=${item.id})}'|"  method="post">
                 </td>
             </tr>
             </tbody>
