@@ -23,9 +23,9 @@ class ItemRepositoryTest {
 
     @Autowired
     ItemRepository itemRepository;
-    @Autowired
-    PlatformTransactionManager platformTransactionManager;
-    TransactionStatus status;
+//    @Autowired
+//    PlatformTransactionManager platformTransactionManager;
+//    TransactionStatus status;
 
     @AfterEach
     void afterEach() {
