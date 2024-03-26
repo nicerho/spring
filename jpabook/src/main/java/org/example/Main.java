@@ -22,7 +22,6 @@ public class Main {
             TeamMember member = new TeamMember();
 
 
-            
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
